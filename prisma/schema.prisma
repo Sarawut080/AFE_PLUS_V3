@@ -41,7 +41,8 @@ model users {
   users_province       String?                @db.VarChar(100)
   users_postcode       String?                @db.VarChar(5)
   users_tel1           String?                @db.VarChar(12)
-  users_passwd         String                 @db.VarChar(100)
+  users_tel_home       String?                @db.VarChar(12)
+  users_passwd        String                 @db.VarChar(100)
   users_pin            Int
   status_id            Int
   users_alert_battery  Int?                   @default(0)
@@ -79,7 +80,8 @@ model takecareperson {
   takecare_province    String?                @db.VarChar(100)
   takecare_postcode    String?                @db.VarChar(5)
   takecare_tel1        String?                @db.VarChar(12)
-  takecare_disease     String?                @db.VarChar(300)
+  takecare_tel_home    String?                @db.VarChar(12)
+  takecare_disease    String?                @db.VarChar(300)
   takecare_drug        String?                @db.VarChar(300)
   takecare_status      Int                    @default(1)
   fall_records         fall_records[]
@@ -241,6 +243,7 @@ model heartrate_settings {
   takecare_id    Int
   max_bpm        Int
   min_bpm        Int
+  min_enable     Boolean        @default(true)
   takecareperson takecareperson @relation(fields: [takecare_id], references: [takecare_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_takecareperson_hrset")
   users          users          @relation(fields: [users_id], references: [users_id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_hrset")
 }
